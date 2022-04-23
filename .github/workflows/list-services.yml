@@ -24,3 +24,4 @@ jobs:
         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
         gcloud config set project interstellar-14
         gcloud services list
+        gcloud compute instances list
