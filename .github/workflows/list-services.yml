@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   Get_OIDC_ID_token:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - id: 'auth'
       name: 'Authenticate to GCP'
