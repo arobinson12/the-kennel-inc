@@ -57,6 +57,7 @@ resource "google_compute_firewall" "rules" {
   name    = "allow-ssh-rdp-iap"
   source_ranges   = ["35.235.240.0/20"]
   network = var.network_name
+  project = var.project_id
 
   allow {
     protocol = "tcp"
