@@ -54,4 +54,5 @@ module "firewall_rules" {
 
 module "nat" {
   source       = "./network/nat"
+  network      = module.vpc.network_name
 }
