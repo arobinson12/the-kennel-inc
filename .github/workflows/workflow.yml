@@ -29,5 +29,8 @@ jobs:
           access_token_lifetime: '300s' # optional, default: '3600s' (1 hour)
 
 
-    - run: |-
-        terraform init -var "access_token=${{ steps.auth.outputs.access_token }}" -backend-config="${{ github.workspace }}/backend.tf"
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      
+    - name: Terraform Init
+      run: terraform init
