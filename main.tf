@@ -16,4 +16,7 @@ provider "google" {
 
 module "network" {
   source = "./network/vpc"
+  
+  project_id = var.project_id
+  network_name = var.network_name
 }
