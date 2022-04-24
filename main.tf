@@ -25,3 +25,12 @@ module "vpc" {
   delete_default_internet_gateway_routes = var.delete_default_internet_gateway_routes
   mtu                                    = var.mtu
 }
+
+
+module "subnets" {
+  source           = "./network/subnets"
+  project_id       = var.project_id
+  network_name     = module.vpc.network_name
+  subnets          = var.subnets
+  secondary_ranges = var.secondary_ranges
+}
