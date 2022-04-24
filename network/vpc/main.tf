@@ -37,3 +37,8 @@ resource "google_compute_shared_vpc_host_project" "shared_vpc_host" {
   project    = var.project_id
   depends_on = [google_compute_network.network]
 }
+
+resource "google_compute_shared_vpc_service_project" "service1" {
+  host_project    = var.project_id
+  service_project = "bu1-prod-app"
+}
