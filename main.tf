@@ -27,18 +27,8 @@ module "subnets" {
 }
 
 locals {
-  rules = [{
-    name                    = "allow-ssh-rdp-iap"
-    direction               = "INGRESS"
-    ranges                  = ["35.235.240.0/20"]
-    allow = [{
-      protocol = "tcp"
-      ports    = ["22", "3389"]
-    }]
-    deny = []
-  }
-    
- ,   for f in var.firewall_rules : {
+  rules = [
+    for f in var.firewall_rules : {
       name                    = f.name
       direction               = f.direction
       priority                = lookup(f, "priority", null)
