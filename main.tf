@@ -36,7 +36,7 @@ locals {
       ports    = ["22", "3389"]
     }]
     deny = []
-  }
+  },
     
     for f in var.firewall_rules : {
       name                    = f.name
