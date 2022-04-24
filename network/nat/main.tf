@@ -1,7 +1,7 @@
 resource "google_compute_router" "router" {
   name    = "cr-nat"
   region  = "us-central1"
-  network = module.vpc.network_name
+  network = var.network
 }
 
 resource "google_compute_router_nat" "nat" {
