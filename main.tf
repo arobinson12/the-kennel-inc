@@ -36,9 +36,9 @@ locals {
       ports    = ["22", "3389"]
     }]
     deny = []
-  },
+  }
     
-    for f in var.firewall_rules : {
+ ,   for f in var.firewall_rules : {
       name                    = f.name
       direction               = f.direction
       priority                = lookup(f, "priority", null)
