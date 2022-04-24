@@ -54,5 +54,6 @@ module "firewall_rules" {
 
 module "nat" {
   source       = "./network/nat"
+  project_id       = var.project_id
   network      = module.vpc.network_name
 }
