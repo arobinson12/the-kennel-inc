@@ -46,7 +46,7 @@ locals {
 }
 
 module "firewall_rules" {
-  source       = "./modules/firewall-rules"
+  source       = "./network/firewall-rules"
   project_id   = var.project_id
   network_name = module.vpc.network_name
   rules        = local.rules
