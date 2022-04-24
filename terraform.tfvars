@@ -11,7 +11,7 @@ subnets = [
             subnet_region         = "us-central1"
             subnet_private_access = "true"
             description           = "Subnet for BU1 resources"
-        }
+        },
          {
             subnet_name           = "subnet-bu2-1"
             subnet_ip             = "10.200.1.0/24"
