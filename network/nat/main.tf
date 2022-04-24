@@ -1,7 +1,7 @@
 resource "google_compute_router" "router" {
   name    = "cr-nat"
   region  = "us-central1"
-  network = var.network
+  network = var.network_name
 }
 
 resource "google_compute_router_nat" "nat" {
