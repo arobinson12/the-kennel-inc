@@ -27,9 +27,6 @@ secondary_ranges = {
                 range_name    = "subnet-svc"
                 ip_cidr_range = "10.101.0.0/23"
             },
-        ]
-
-        subnet-bu1-1 = [
             {
                 range_name    = "subnet-pods"
                 ip_cidr_range = "10.101.2.0/27"
