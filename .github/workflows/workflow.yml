@@ -30,4 +30,4 @@ jobs:
 
 
     - run: |-
-        terraform init -var "access_token=${{ steps.auth.outputs.access_token }}" -backend-config="prefix=tf-state" -backend-config="../../backend.tf"
+        terraform init -var "access_token=${{ steps.auth.outputs.access_token }}" -backend-config="prefix=tf-state" -backend-config="${{ github.workspace }}/backend.tf"
