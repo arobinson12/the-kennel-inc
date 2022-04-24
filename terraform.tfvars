@@ -13,3 +13,13 @@ subnets = [
             description           = "Subnet for BU1 resources"
         }
 ]
+
+routes = [
+        {
+            name                   = "egress-internet"
+            description            = "route through IGW to access internet"
+            destination_range      = "0.0.0.0/0"
+            tags                   = "egress-inet"
+            next_hop_internet      = "true"
+        }
+]
