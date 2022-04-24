@@ -32,6 +32,8 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       
+    - run: terraform force-unlock -force e8f25a05-4383-4026-87bd-381aa0452a86
+      
     - name: Terraform Init
       run: terraform init
       
