@@ -34,9 +34,7 @@ jobs:
       
     - name: Terraform Init
       run: terraform init
-      
-    - run: terraform force-unlock -force 1650777431352860
-      
+            
     # Checks that all Terraform configuration files adhere to a canonical format
     #- name: Terraform Format
      # run: terraform fmt -check
