@@ -84,7 +84,7 @@ output "subnets_secondary_ranges" {
   description = "The secondary ranges associated with these subnets"
 }
 
-#output "route_names" {
-#  value       = [for route in module.routes.routes : route.name]
-#  description = "The route names associated with this VPC"
-#}
+output "route_names" {
+  value       = [for route in module.routes.routes : route.name]
+  description = "The route names associated with this VPC"
+}
