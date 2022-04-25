@@ -58,6 +58,7 @@ module "nat" {
   project_id   = var.project_id
 }
 
-  module "gke" {
+module "gke" {
   source       = "./infrastructure/gke"
+  project      = "bu1-prod-app"
 }
