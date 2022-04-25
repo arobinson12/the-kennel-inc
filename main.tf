@@ -79,7 +79,7 @@ provider "kubernetes" {
 module "gke" {
   source                     = "./infrastructure/gke"
   project_id                 = var.bu1_project_id
-  name                       = "${local.cluster_type}-cluster${var.cluster_name_suffix}"
+  name                       = "super-cluster2"
   region                     = "us-central1"
   network                    = module.vpc.network_name
   network_project_id         = var.project_id
