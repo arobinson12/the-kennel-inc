@@ -4,7 +4,7 @@ resource "google_container_cluster" "primary" {
   project                  = "bu1-prod-app"
   location                 = "us-central1-c"
   remove_default_node_pool = false
-  initial_node_count       = 3
+  initial_node_count       = 2
   network                  = "projects/prd-shared-host/global/networks/vpc-prod-shared"
   subnetwork               = "projects/prd-shared-host/regions/us-central1/subnetworks/subnet-bu1-1"
   logging_service          = "logging.googleapis.com/kubernetes"
