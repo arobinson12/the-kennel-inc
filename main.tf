@@ -57,3 +57,37 @@ module "nat" {
   network_name      = module.vpc.network_name
   project_id   = var.project_id
 }
+
+# ******************************************************
+# ******************************************************
+# GKE
+# ******************************************************
+# ******************************************************
+
+locals {
+  cluster_type = "shared-vpc"
+}
+
+data "google_client_config" "default" {}
+
+provider "kubernetes" {
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+}
+
+module "gke" {
+  source                     = "./infrastructure/gke"
+  project_id                 = var.bu1_project_id
+  name                       = "${local.cluster_type}-cluster${var.cluster_name_suffix}"
+  region                     = "us-central1"
+  network                    = module.vpc.network_name
+  network_project_id         = var.project_id
+  subnetwork                 = "subnet-bu1-1"
+  ip_range_pods              = "subnet-pods"
+  ip_range_services          = "subnet-svc"
+  create_service_account     = false
+  service_account            = "gke-sa@bu1-prod-app.iam.gserviceaccount.com"
+  add_cluster_firewall_rules = true
+  firewall_inbound_ports     = ["9443", "15017"]
+}
