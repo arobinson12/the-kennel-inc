@@ -44,3 +44,5 @@ routes = [
             next_hop_internet      = "true"
         }
 ]
+
+bu1_project_id = "bu1-prod-app"
