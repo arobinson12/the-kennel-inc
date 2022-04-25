@@ -81,3 +81,32 @@ variable "mtu" {
   description = "The network MTU. Must be a value between 1460 and 1500 inclusive. If set to 0 (meaning MTU is unset), the network will default to 1460 automatically."
   default     = 0
 }
+
+variable "cluster_name_suffix" {
+  description = "A suffix to append to the default cluster name"
+  default     = ""
+}
+
+variable "region" {
+  description = "The region to host the cluster in"
+}
+
+variable "network" {
+  description = "The VPC network to host the cluster in"
+}
+
+variable "network_project_id" {
+  description = "The GCP project housing the VPC network to host the cluster in"
+}
+
+variable "subnetwork" {
+  description = "The subnetwork to host the cluster in"
+}
+
+variable "ip_range_pods" {
+  description = "The secondary ip range to use for pods"
+}
+
+variable "ip_range_services" {
+  description = "The secondary ip range to use for services"
+}
