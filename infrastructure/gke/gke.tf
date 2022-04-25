@@ -1,7 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
-  project                  = "bu1-prod-app"
+  project_id                  = "bu1-prod-app"
   location                 = "us-central1-c"
   remove_default_node_pool = true
   initial_node_count       = 3
