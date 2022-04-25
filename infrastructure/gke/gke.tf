@@ -3,7 +3,7 @@ resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
   project                  = "bu1-prod-app"
   location                 = "us-central1-c"
-  remove_default_node_pool = true
+  remove_default_node_pool = false
   initial_node_count       = 3
   network                  = "projects/prd-shared-host/global/networks/vpc-prod-shared"
   subnetwork               = "subnet-bu1-1"
