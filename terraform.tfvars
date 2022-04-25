@@ -25,11 +25,11 @@ secondary_ranges = {
         subnet-bu1-1 = [
             {
                 range_name    = "subnet-svc"
-                ip_cidr_range = "10.101.0.0/23"
+                ip_cidr_range = "10.101.0.0/27"
             },
             {
                 range_name    = "subnet-pods"
-                ip_cidr_range = "10.101.2.0/27"
+                ip_cidr_range = "10.101.2.0/23"
             }
         ]
     }
