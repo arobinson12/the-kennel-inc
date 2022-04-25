@@ -26,6 +26,10 @@ secondary_ranges = {
             {
                 range_name    = "gke-svc"
                 ip_cidr_range = "10.110.0.0/26"
+            },
+            {
+                range_name    = "gke-pods"
+                ip_cidr_range = "10.110.128.0/17"
             }
         ]
     }
