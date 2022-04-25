@@ -24,6 +24,14 @@ subnets = [
 secondary_ranges = {
         subnet-bu1-1 = [
             {
+                range_name    = "subnet-svc"
+                ip_cidr_range = "10.101.0.0/23"
+            },
+            {
+                range_name    = "subnet-pods"
+                ip_cidr_range = "10.101.2.0/27"
+            },
+            {
                 range_name    = "gke-svc"
                 ip_cidr_range = "10.110.0.0/26"
             },
