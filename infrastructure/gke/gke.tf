@@ -30,8 +30,8 @@ resource "google_container_cluster" "primary" {
   }
 
   ip_allocation_policy {
-    cluster_secondary_range_name  = "subnet-pods"
-    services_secondary_range_name = "subnet-svc"
+    cluster_secondary_range_name  = "gke-pods"
+    services_secondary_range_name = "gke-svc"
   }
 
   private_cluster_config {
