@@ -6,7 +6,7 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = false
   initial_node_count       = 3
   network                  = "projects/prd-shared-host/global/networks/vpc-prod-shared"
-  subnetwork               = "subnet-bu1-1"
+  subnetwork               = "projects/prd-shared-host/regions/us-central1/subnetworks/subnet-bu1-1"
   logging_service          = "logging.googleapis.com/kubernetes"
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   networking_mode          = "VPC_NATIVE"
