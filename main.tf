@@ -58,6 +58,6 @@ module "nat" {
   project_id   = var.project_id
 }
 
-module "gke" {
-  source       = "./infrastructure/gke"
-}
+# module "gke" {
+#   source       = "./infrastructure/gke"
+# }
