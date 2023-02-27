@@ -52,12 +52,12 @@ module "firewall_rules" {
   rules        = local.rules
 }
 
-module "nat" {
-  source       = "./network/nat"
-  network_name      = module.vpc.network_name
-  project_id   = var.project_id
-}
+#module "nat" {
+#  source       = "./network/nat"
+#  network_name      = module.vpc.network_name
+#  project_id   = var.project_id
+#}
 
-module "gke" {
-  source       = "./infrastructure/gke"
-}
+#module "gke" {
+#  source       = "./infrastructure/gke"
+#}
