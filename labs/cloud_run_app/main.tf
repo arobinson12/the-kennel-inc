@@ -42,17 +42,21 @@ resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
 
 # Creating the VPC connector
 resource "google_vpc_access_connector" "serverless_vpc_connector" {
+  provider = google-beta
+
   name          = "serverless-vpc-connector"
   region        = "us-central1"
   ip_cidr_range = "10.90.0.0/28"
 
-  connected_project = "var.project_id"
+  project = var.project_id
 
   depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
 }
 
 # Creating the cloud run app
-resource "google_cloudrun_service" "elixir_app" {
+resource "google_cloud_run_service" "elixir_app" {
+  provider = google-beta
+
   name     = "elixir-app"
   location = var.region
 
@@ -71,8 +75,10 @@ resource "google_cloudrun_service" "elixir_app" {
 }
 
 # Making the Cloud Run app available to public
-resource "google_cloudrun_service_iam_member" "public" {
-  service  = google_cloudrun_service.elixir_app.name
+resource "google_cloud_run_service_iam_member" "public" {
+  provider = google-beta
+
+  service  = google_cloud_run_service.elixir_app.name
   location = var.region
   role     = "roles/run.invoker"
   member   = "allUsers"
@@ -84,23 +90,24 @@ resource "google_service_account" "elixir_app" {
   display_name = "Elixir App Service Account"
 }
 
+
 # Identity Platform tenant and microsoft config. Need to add tenant id, client secret, and secret version resource name
 
-  resource "google_identity_platform_tenant" "tenant" {
-  display_name = "Elixir App Tenant"
-  project      = var.project_id
-}
+#resource "google_identity_platform_tenant" "tenant" {
+#  display_name = "Elixir App Tenant"
+#  project      = var.project_id
+#}
 
-resource "google_identity_platform_tenant_oauth_idp_config" "microsoft_ad" {
-  display_name  = "Microsoft AD"
-  enabled       = true
-  tenant        = google_identity_platform_tenant.tenant.name
-  client_id     = "your_microsoft_ad_client_id"
-  issuer        = "https://login.microsoftonline.com/your_tenant_id/v2.0"
-  client_secret = {
-    secret_manager_secret_version = "your_microsoft_ad_client_secret_version_resource_name"
-  }
-}
+#resource "google_identity_platform_tenant_oauth_idp_config" "microsoft_ad" {
+#  display_name  = "Microsoft AD"
+#  enabled       = true
+#  tenant        = google_identity_platform_tenant.tenant.name
+#  client_id     = "your_microsoft_ad_client_id"
+#  issuer        = "https://login.microsoftonline.com/your_tenant_id/v2.0"
+#  client_secret = {
+#    secret_manager_secret_version = "your_microsoft_ad_client_secret_version_resource_name"
+#  }
+#}
 
 # Load Balancer. Need to add domain to SSL cert and URL map
 
