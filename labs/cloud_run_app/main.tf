@@ -42,16 +42,15 @@ resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
 
 # Creating the VPC connector
 resource "google_vpc_access_connector" "serverless_vpc_connector" {
-  provider = google-beta
-
   name          = "serverless-vpc-connector"
   region        = "us-central1"
   ip_cidr_range = "10.90.0.0/28"
 
-  project = var.project_id
+  project_id = var.project_id
 
   depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
 }
+
 
 # Creating the cloud run app
 resource "google_cloud_run_service" "elixir_app" {
@@ -115,7 +114,6 @@ resource "google_compute_global_address" "load_balancer_ip" {
   name          = "elixir-app-load-balancer-ip"
   purpose       = "EXTERNAL"
   address_type  = "IPv4"
-  network_tier  = "PREMIUM"
 }
 
 resource "google_compute_managed_ssl_certificate" "ssl_cert" {
