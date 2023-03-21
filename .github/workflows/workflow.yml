@@ -7,6 +7,12 @@ on:
     - prod
   pull_request:
 
+env:
+  TF_TOKEN_FORMAT: 'access_token'
+  TF_WORKLOAD_ID_PROVIDER: 'projects/874395041100/locations/global/workloadIdentityPools/iac-pool/providers/github'
+  TF_SERVICE_ACCOUNT: 'gh-actions@interstellar-14.iam.gserviceaccount.com'
+  TF_ACCESS_TOKEN_LIFETIME: '300s'
+
 jobs:
   Get_OIDC_ID_token:
   # Add "id-token" with the intended permissions.
@@ -24,11 +30,10 @@ jobs:
       uses: 'google-github-actions/auth@v0.3.1'
       with:
           create_credentials_file: 'true'
-          token_format: 'access_token'
-          workload_identity_provider: 'projects/874395041100/locations/global/workloadIdentityPools/iac-pool/providers/github'
-          service_account: 'gh-actions@interstellar-14.iam.gserviceaccount.com'
-          access_token_lifetime: '300s' # optional, default: '3600s' (1 hour)
-
+          token_format: '${{ env.TF_TOKEN_FORMAT }}'
+          workload_identity_provider: '${{ env.TF_WORKLOAD_ID_PROVIDER }}'
+          service_account: '${{ env.TF_SERVICE_ACCOUNT }}'
+          access_token_lifetime: '${{ env.TF_ACCESS_TOKEN_LIFETIME }}' # optional, default: '3600s' (1 hour)
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
