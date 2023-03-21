@@ -46,7 +46,7 @@ resource "google_vpc_access_connector" "serverless_vpc_connector" {
   region        = "us-central1"
   ip_cidr_range = "10.90.0.0/28"
 
-  project_id = var.project_id
+  project = var.project_id
 
   depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
 }
@@ -54,24 +54,26 @@ resource "google_vpc_access_connector" "serverless_vpc_connector" {
 
 # Creating the cloud run app
 resource "google_cloud_run_service" "elixir_app" {
-  provider = google-beta
-
   name     = "elixir-app"
   location = var.region
 
   template {
-    spec {
-      containers {
-        image = "gcr.io/${var.project_id}/sample-login-app"
-      }
+    metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale" : "10"
         "run.googleapis.com/vpc-access-connector" : google_vpc_access_connector.serverless_vpc_connector.name
+      }
+    }
+
+    spec {
+      containers {
+        image = "gcr.io/${var.project_id}/sample-login-app"
       }
       service_account_name = google_service_account.elixir_app.email
     }
   }
 }
+
 
 # Making the Cloud Run app available to public
 resource "google_cloud_run_service_iam_member" "public" {
@@ -113,7 +115,7 @@ resource "google_service_account" "elixir_app" {
 resource "google_compute_global_address" "load_balancer_ip" {
   name          = "elixir-app-load-balancer-ip"
   purpose       = "EXTERNAL"
-  address_type  = "IPv4"
+  address_type  = "EXTERNAL"
 }
 
 resource "google_compute_managed_ssl_certificate" "ssl_cert" {
@@ -145,7 +147,7 @@ resource "google_compute_backend_service" "backend" {
   timeout_sec = 10
 
   backend {
-    group = google_cloudrun_service.elixir_app.status[0].url
+    group = google_cloud_run_service.elixir_app.status[0].url
   }
 }
 
