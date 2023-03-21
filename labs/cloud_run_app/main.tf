@@ -45,11 +45,13 @@ resource "google_vpc_access_connector" "serverless_vpc_connector" {
   name          = "serverless-vpc-connector"
   region        = "us-central1"
   ip_cidr_range = "10.90.0.0/28"
+  project       = var.project_id
 
-  project = var.project_id
+  network = "projects/${var.shared_vpc_project_id}/global/networks/${var.shared_vpc_name}"
 
   depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
 }
+
 
 
 # Creating the cloud run app
