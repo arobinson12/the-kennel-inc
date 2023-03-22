@@ -16,8 +16,6 @@ module "subnets" {
   network_name     = module.vpc.network_name
   subnets          = var.subnets
   secondary_ranges = var.secondary_ranges
-  # Added for sample app
-  shared_vpc_name  = "vpc-prod-shared"
 }
 
   module "routes" {
