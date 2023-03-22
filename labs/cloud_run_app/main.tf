@@ -35,7 +35,7 @@ resource "google_project_iam_member" "elixir_app_sdk_admin" {
 # Create the subnet for serverless connector
 resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
   name          = "serverless-connector-subnet"
-  ip_cidr_range = "10.90.0.0/28"
+  ip_cidr_range = var.ip_range
   region        = "us-central1"
   network       = var.shared_vpc_name
   project       = var.shared_vpc_project_id
