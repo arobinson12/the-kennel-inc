@@ -25,6 +25,17 @@ resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
   service_project   = var.project_id
 }
 
+resource "google_project_iam_member" "service_project_network_user" {
+  project = var.shared_vpc_project_id
+  role    = "roles/compute.networkUser"
+  member  = "projectEditor:${var.project_id}"
+}
+
+resource "google_project_iam_member" "service_project_security_admin" {
+  project = var.shared_vpc_project_id
+  role    = "roles/compute.securityAdmin"
+  member  = "projectEditor:${var.project_id}"
+}
 
 # Service accounts needed for the app
 
@@ -49,6 +60,11 @@ resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
   project       = var.shared_vpc_project_id
 }
 
+resource "time_sleep" "wait_1m" {
+  depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
+  create_duration = "1m"
+}
+
 # Creating the serverless VPC connector and attaching to the subnet created in /networks/subnets
 resource "google_vpc_access_connector" "serverless_vpc_connector" {
   name          = "serverless-vpc-connector"
@@ -61,7 +77,7 @@ resource "google_vpc_access_connector" "serverless_vpc_connector" {
 
   machine_type = "e2-standard-4"
 
-  depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
+  depends_on = [time_sleep.wait_1m]
 }
 
 # Creating the cloud run app
