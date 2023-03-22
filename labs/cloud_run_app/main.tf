@@ -18,13 +18,6 @@ provider "google-beta" {
   region  = var.region
 }
 
-# Granting this BU1 project access to the shared VPC
-
-resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
-  host_project      = var.shared_vpc_project_id
-  service_project   = var.project_id
-}
-
 # Service accounts needed for the app
 
 resource "google_project_iam_member" "elixir_app_identity_platform" {
@@ -39,16 +32,28 @@ resource "google_project_iam_member" "elixir_app_sdk_admin" {
   member  = "serviceAccount:${google_service_account.elixir_app.email}"
 }
 
+# Create the subnet for serverless connector
+resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
+  name          = "serverless-connector-subnet"
+  ip_cidr_range = var.ip_range
+  region        = "us-central1"
+  network       = var.shared_vpc_name
+  project       = var.shared_vpc_project_id
+}
+
 # Creating the serverless VPC connector and attaching to the subnet created in /networks/subnets
 resource "google_vpc_access_connector" "serverless_vpc_connector" {
   name          = "serverless-vpc-connector"
   region        = "us-central1"
-  ip_cidr_range = "10.90.0.0/28"
   project       = var.project_id
 
-  network = "projects/${var.shared_vpc_project_id}/global/networks/${var.shared_vpc_name}"
+  subnet {
+    name = google_compute_subnetwork.serverless_vpc_connector_subnet.name
+  }
 
-  depends_on = [google_compute_shared_vpc_service_project.shared_vpc_attachment]
+  machine_type = "e2-standard-4"
+
+  depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
 }
 
 # Creating the cloud run app
