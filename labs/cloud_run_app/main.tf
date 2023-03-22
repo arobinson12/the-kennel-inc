@@ -25,17 +25,6 @@ resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
   service_project   = var.project_id
 }
 
-resource "google_project_iam_member" "service_project_network_user" {
-  project = var.shared_vpc_project_id
-  role    = "roles/compute.networkUser"
-  member  = "projectEditor:${var.project_id}"
-}
-
-resource "google_project_iam_member" "service_project_security_admin" {
-  project = var.shared_vpc_project_id
-  role    = "roles/compute.securityAdmin"
-  member  = "projectEditor:${var.project_id}"
-}
 
 # Service accounts needed for the app
 
