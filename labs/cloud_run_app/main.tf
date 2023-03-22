@@ -40,34 +40,6 @@ resource "google_project_iam_member" "elixir_app_sdk_admin" {
   member  = "serviceAccount:${google_service_account.elixir_app.email}"
 }
 
-# Create the subnet for serverless connector
-resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
-  name          = "serverless-connector-subnet"
-  ip_cidr_range = var.ip_range
-  region        = "us-central1"
-  network       = var.shared_vpc_name
-  project       = var.shared_vpc_project_id
-}
-
-resource "time_sleep" "wait_1m" {
-  depends_on = [google_compute_subnetwork.serverless_vpc_connector_subnet]
-  create_duration = "1m"
-}
-
-# Creating the serverless VPC connector and attaching to the subnet created in /networks/subnets
-resource "google_vpc_access_connector" "serverless_vpc_connector" {
-  name          = "serverless-vpc-connector"
-  region        = "us-central1"
-  project       = var.project_id
-
-  subnet {
-    name = google_compute_subnetwork.serverless_vpc_connector_subnet.name
-  }
-
-  machine_type = "e2-standard-4"
-
-  depends_on = [time_sleep.wait_1m]
-}
 
 # Creating the cloud run app
 resource "google_cloud_run_service" "elixir_app" {
@@ -78,7 +50,6 @@ resource "google_cloud_run_service" "elixir_app" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/maxScale" : "10"
-        "run.googleapis.com/vpc-access-connector" : google_vpc_access_connector.serverless_vpc_connector.name
       }
     }
 
