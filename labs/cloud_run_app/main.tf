@@ -34,6 +34,7 @@ resource "google_project_iam_member" "elixir_app_sdk_admin" {
 
 # Creating the subnet for the connector
 resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
+  provider      = google-beta
   name          = "serverless-connector-subnet"
   ip_cidr_range = "10.90.0.0/28"
   region        = "us-central1"
