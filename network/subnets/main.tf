@@ -66,6 +66,6 @@ resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
   name          = "serverless-connector-subnet"
   ip_cidr_range = "10.90.0.0/28"
   region        = "us-central1"
-  network       = "projects/${var.project_id}/global/networks/${var.shared_vpc_name}"
+  network       = var.network_name
   project       = var.project_id
 }
