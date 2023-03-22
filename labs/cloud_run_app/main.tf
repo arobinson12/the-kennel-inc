@@ -55,7 +55,7 @@ resource "google_cloud_run_service" "elixir_app" {
 
     spec {
       containers {
-        image = "gcr.io/${var.project_id}/sample-login-app"
+        image = "gcr.io/${var.project_id}/sample-login-app-image:latest"
       }
       service_account_name = google_service_account.elixir_app.email
     }
