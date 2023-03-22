@@ -18,17 +18,24 @@ provider "google-beta" {
   region  = var.region
 }
 
+# Granting this BU1 project access to the shared VPC
+
+resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
+  host_project      = var.shared_vpc_project_id
+  service_project   = var.project_id
+}
+
 # Service accounts needed for the app
 
 resource "google_project_iam_member" "elixir_app_identity_platform" {
   project = var.project_id
-  role    = "roles/firebase.sdkAdminForAuth"
+  role    = "roles/identityplatform.admin"
   member  = "serviceAccount:${google_service_account.elixir_app.email}"
 }
 
 resource "google_project_iam_member" "elixir_app_sdk_admin" {
   project = var.project_id
-  role    = "roles/firebase.sdkAdminForAuth"
+  role    = "roles/identityplatform.admin"
   member  = "serviceAccount:${google_service_account.elixir_app.email}"
 }
 
@@ -39,6 +46,10 @@ resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
   ip_cidr_range = "10.90.0.0/28"
   region        = "us-central1"
   network       = "projects/${var.shared_vpc_project_id}/global/networks/${var.shared_vpc_name}"
+  
+  depends_on = [
+    google_compute_shared_vpc_service_project.shared_vpc_attachment,
+  ]
 }
 
 # Creating the VPC connector
