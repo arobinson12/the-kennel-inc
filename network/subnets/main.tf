@@ -60,3 +60,12 @@ resource "google_compute_subnetwork" "subnetwork" {
   purpose = lookup(each.value, "purpose", null)
   role    = lookup(each.value, "role", null)
 }
+
+	# Adding for Sample App in Cloud Run
+resource "google_compute_subnetwork" "serverless_vpc_connector_subnet" {
+  name          = "serverless-connector-subnet"
+  ip_cidr_range = "10.90.0.0/28"
+  region        = "us-central1"
+  network       = var.network_name
+  project       = var.project_id
+}
