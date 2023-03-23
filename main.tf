@@ -58,15 +58,15 @@ module "firewall_rules" {
 #  project_id   = var.project_id
 #}
 
-module "gke" {
-  source       = "./infrastructure/gke"
-}
+#module "gke" {
+#  source       = "./infrastructure/gke"
+#}
 
-module "cloud_run_app" {
-  source              = "./labs/cloud_run_app"
-  project_id          = "bu1-prod-app"
-  shared_vpc_project_id = "prd-shared-host"
-  shared_vpc_name     = "vpc-prod-shared"
-  region              = "us-central1"
-  ip_range            = "10.90.0.0/28"
-}
+#module "cloud_run_app" {
+#  source              = "./labs/cloud_run_app"
+#  project_id          = "bu1-prod-app"
+#  shared_vpc_project_id = "prd-shared-host"
+#  shared_vpc_name     = "vpc-prod-shared"
+#  region              = "us-central1"
+#  ip_range            = "10.90.0.0/28"
+#}
