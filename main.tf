@@ -62,6 +62,16 @@ module "firewall_rules" {
 #  source       = "./infrastructure/gke"
 #}
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+}
+  
 #module "cloud_run_app" {
 #  source              = "./labs/cloud_run_app"
 #  project_id          = "bu1-prod-app"
