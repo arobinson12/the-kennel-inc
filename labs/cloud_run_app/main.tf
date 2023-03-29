@@ -20,10 +20,10 @@ provider "google-beta" {
 
 # Granting this BU1 project access to the shared VPC
 
-# resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
-#   host_project      = var.shared_vpc_project_id
-#   service_project   = var.project_id
-# }
+ resource "google_compute_shared_vpc_service_project" "shared_vpc_attachment" {
+   host_project      = var.shared_vpc_project_id
+   service_project   = var.project_id
+ }
 
 
 # # Service accounts needed for the app
