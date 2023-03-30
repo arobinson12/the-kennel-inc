@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script searches through all projects within the GCP organization where it is run and enables GKE Security Posture Management (workload vulnerability scanning & workload config audit) on existing clusters
+
 # Get all projects in the organization
 projects=$(gcloud projects list --format='value(project_id)')
 
@@ -19,8 +21,8 @@ for project in $projects; do
     echo "Enabling workload-vulnerability-scanning for cluster $name in region $region..."
     gcloud beta container clusters update "$name" --region="$region" --enable-workload-vulnerability-scanning
 
-    # Wait for 30 seconds before enabling the next feature
-    sleep 30
+    # Wait for 10 seconds before enabling the next feature
+    sleep 10
 
     # Enable workload-config-audit
     echo "Enabling workload-config-audit for cluster $name in region $region..."
