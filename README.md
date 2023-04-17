@@ -1,2 +1,2 @@
-# ar-gcp-lab
-Demonstrate IaC DevSecOps in a GCP environment
+# The Kennel Inc.
+Demonstrate IaC DevSecOps in a GCP environment.
