@@ -71,3 +71,7 @@ module "cloud_run_app" {
   region              = "us-central1"
   ip_range            = "10.90.0.0/28"
 }
+  
+module "mig" {
+  source = "./infrastructure/gce"
+}
