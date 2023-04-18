@@ -43,12 +43,13 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan -out=tfplan
-      
+
     - name: Install OPA
-      uses: open-policy-agent/action-opa@v1
-      with:
-        version: 'latest'
-      
+      run: |
+        curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
+        chmod +x opa
+        sudo mv opa /usr/local/bin/
+
     - name: Run OPA Evaluation
       run: opa eval -i tfplan -d policies/opa_policy.rego "data.terraform.analysis.authz"
       
