@@ -43,6 +43,9 @@ jobs:
 
     - name: Terraform Plan
       run: terraform plan -out=tfplan
+      
+    - name: Convert Plan to JSON
+      run: terraform show -json tfplan > tfplan.json
 
     - name: Install OPA
       run: |
@@ -51,7 +54,7 @@ jobs:
         sudo mv opa /usr/local/bin/
 
     - name: Run OPA Evaluation
-      run: opa eval -i tfplan -d policies/opa_policy.rego "data.terraform.analysis.authz"
+      run: opa eval -i tfplan.json -d policies/opa_policy.rego "data.terraform.analysis.authz"
       
     - name: Terraform Apply
       if: github.ref == 'refs/heads/prod' && github.event_name == 'push'
