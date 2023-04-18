@@ -40,16 +40,21 @@ jobs:
       
     - name: Terraform Init
       run: terraform init
-      
-#    - run: terraform force-unlock -force 1650849042927182
-            
-    # Checks that all Terraform configuration files adhere to a canonical format 
-    #- name: Terraform Format
-     # run: terraform fmt -check
-      
-    # Generates an execution plan for Terraform
+
     - name: Terraform Plan
-      run: terraform plan
+      run: terraform plan -out=tfplan
+      
+    - name: Convert Plan to JSON
+      run: terraform show -json tfplan > tfplan.json
+
+    - name: Install OPA
+      run: |
+        curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
+        chmod +x opa
+        sudo mv opa /usr/local/bin/
+
+    - name: Run OPA Evaluation
+      run: opa eval -i tfplan.json -d policies/opa_policy.rego "data.terraform.analysis.authz"
       
     - name: Terraform Apply
       if: github.ref == 'refs/heads/prod' && github.event_name == 'push'
