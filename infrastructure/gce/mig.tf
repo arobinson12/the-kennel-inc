@@ -2,6 +2,9 @@ resource "google_compute_instance_template" "vm_template" {
   name_prefix  = "bu1-prod-app-instance-template-"
   project      = "bu1-prod-app"
   machine_type = "e2-medium"
+  
+  instance_description = "MIG instance"
+  tags                 = ["mig-target"]
 
   disk {
     boot = true
@@ -23,7 +26,7 @@ resource "google_compute_instance_template" "vm_template" {
     #! /bin/bash
     apt-get update
     apt-get install -y nginx
-    echo "Hello from $(hostname)" > /var/www/html/index.html
+    echo "Hello from $(hostname). I'm a pet lover too!" > /var/www/html/index.html
     systemctl start nginx
   EOT
 
