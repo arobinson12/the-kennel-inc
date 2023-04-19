@@ -75,7 +75,6 @@ module "tags_policies" {
   source       = "./network/tags_policies"
   project_id   = var.project_id
   network_name = module.vpc.network_name
-  rules        = local.rules
 }
 
 output "frontend_tag_value" {
