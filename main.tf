@@ -73,8 +73,6 @@ module "cloud_run_app" {
   
 module "tags_policies" {
   source       = "./network/tags_policies"
-  project_id   = var.project_id
-  network_name = module.vpc.network_name
 }
 
 output "frontend_tag_value" {
