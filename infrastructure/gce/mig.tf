@@ -4,7 +4,7 @@ resource "google_compute_instance_template" "vm_template" {
   machine_type = "e2-medium"
   
   instance_description = "MIG instance"
-  tags                 = ["mig-target", google_compute_tag_value.frontend.value]
+  tags                 = ["mig-target", module.tags_policies.frontend_tag_value]
 
   disk {
     boot = true
