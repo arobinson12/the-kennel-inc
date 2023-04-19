@@ -79,5 +79,5 @@ module "load_balancer" {
   source                  = "./network/load_balancing"
   project_id              = "bu1-prod-app"
   shared_vpc_host_project = "prd-shared-host"
-  mig_instance_group      = module.mig.vm_instance_group.self_link
+  instance_group      = module.mig.vm_instance_group.self_link
 }
