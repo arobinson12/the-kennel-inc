@@ -71,6 +71,18 @@ module "cloud_run_app" {
   ip_range            = "10.90.0.0/28"
 }
   
+module "tags_policies" {
+  source       = "./network/tags_policies"
+  project_id   = var.project_id
+  network_name = module.vpc.network_name
+  rules        = local.rules
+}
+
+output "frontend_tag_value" {
+  value = module.tags_policies.frontend_tag_value
+}
+  
 module "mig" {
   source = "./infrastructure/gce"
 }
+
