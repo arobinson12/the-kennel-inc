@@ -62,6 +62,7 @@ module "gke" {
   source       = "./infrastructure/gke"
 }
 
+  
 module "cloud_run_app" {
   source              = "./labs/cloud_run_app"
   project_id          = "bu1-prod-app"
@@ -70,6 +71,7 @@ module "cloud_run_app" {
   region              = "us-central1"
   ip_range            = "10.90.0.0/28"
 }
+<<<<<<< HEAD
   
 module "tags_policies" {
   source       = "./network/tags_policies"
@@ -83,3 +85,5 @@ module "mig" {
   source = "./infrastructure/gce"
 }
 
+=======
+>>>>>>> parent of ad7ed25 (Merge pull request #53 from arobinson12/dev)
