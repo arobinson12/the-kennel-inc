@@ -81,3 +81,7 @@ module "global_load_balancer" {
   source = "./network/loadbalancer"
   mig_instance_group = module.mig.instance_group_url
 }
+
+module "custom_firewall" {
+  source = "/network/tags-firewall"
+}
