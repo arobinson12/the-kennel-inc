@@ -20,6 +20,7 @@ resource "google_compute_network_firewall_policy" "primary" {
 resource "google_compute_network_firewall_policy_rule" "primary" {
   action                  = "allow"
   description             = "This is a simple rule description"
+  project                 = "prd-shared-host"
   direction               = "INGRESS"
   disabled                = false
   enable_logging          = true
@@ -55,7 +56,7 @@ resource "google_compute_instance" "proxy_1" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "debian-cloud/debian-11"
     }
   }
 
