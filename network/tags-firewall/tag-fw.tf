@@ -4,11 +4,11 @@ resource "google_tags_tag_key" "apptype" {
   short_name  = "apptype"
   description = "For apptype resources."
   purpose     = "GCE_FIREWALL"
-
-  purpose_data {
+  purpose_data = jsonencode({
     network = "prd-shared-host/vpc-prod-shared"
-  }
+  })
 }
+
 
 resource "google_tags_tag_value" "web" {
   parent      = "tagKeys/${google_tags_tag_key.apptype.name}"
