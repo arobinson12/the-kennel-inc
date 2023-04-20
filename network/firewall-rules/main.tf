@@ -53,14 +53,14 @@ resource "google_compute_firewall" "rules" {
   }
 }
 
-  resource "google_compute_firewall" "iap" {
-  name    = "allow-ssh-rdp-iap"
-  source_ranges   = ["35.235.240.0/20"]
-  network = var.network_name
-  project = var.project_id
+#  resource "google_compute_firewall" "iap" {
+#  name    = "allow-ssh-rdp-iap"
+#  source_ranges   = ["35.235.240.0/20"]
+#  network = var.network_name
+#  project = var.project_id
 
-  allow {
-    protocol = "tcp"
-    ports    = ["22", "3389"]
-  }
-}
+#  allow {
+#    protocol = "tcp"
+#    ports    = ["22", "3389"]
+#  }
+#}
