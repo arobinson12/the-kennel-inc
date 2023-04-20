@@ -1,10 +1,15 @@
+variable "mig_instance_group" {
+  type        = string
+  description = "Managed Instance Group URL"
+}
+
 resource "google_compute_backend_service" "mig_backend_service" {
   name        = "mig-backend-service"
   project     = "bu1-prod-app"
   protocol    = "HTTPS"
 
   backend {
-    group = google_compute_instance_group_manager.vm_instance_group.instance_group
+    group = var.mig_instance_group
   }
 
   health_checks = [
