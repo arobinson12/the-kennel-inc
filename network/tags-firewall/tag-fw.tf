@@ -1,3 +1,7 @@
+module "custom_firewall" {
+  source = "./modules/custom_firewall"
+}
+
 resource "google_tags_tag_key" "apptype" {
   parent      = "organizations/85360846529"
   short_name  = "apptype"
@@ -40,3 +44,31 @@ resource "google_compute_network_firewall_policy_rule" "primary" {
     }
   }
 }
+
+resource "google_compute_instance" "proxy_1" {
+  name         = "proxy-1"
+  project      = "bu1-prod-app"
+  machine_type = "n1-standard-1"
+  zone         = "us-central1-a"
+  
+  service_account {
+    email  = "generic-web@bu1-prod-app.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-9"
+    }
+  }
+
+  network_interface {
+    network    = "projects/prd-shared-host/global/networks/vpc-prod-shared"
+    subnetwork = "projects/prd-shared-host/regions/us-central1/subnetworks/subnet-bu1-1"
+  }
+}
+
+#resource "google_tags_tag_binding" "binding" {
+#  parent    = "//compute.googleapis.com/projects/bu1-prod-app/zones/us-central1-a/instances/${google_compute_instance.proxy_1.name}"
+#  tag_value = "tagValues/${google_tags_tag_value.web.name}"
+#}
