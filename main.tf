@@ -83,5 +83,5 @@ module "global_load_balancer" {
 }
 
 module "custom_firewall" {
-  source = "/network/tags-firewall"
+  source = "./network/tags-firewall"
 }
