@@ -71,7 +71,6 @@ resource "google_compute_instance" "proxy_1" {
 }
 
 resource "google_tags_tag_binding" "binding" {
-  parent    = "//compute.googleapis.com/projects/bu1-prod-app/global/instances/${google_compute_instance.proxy_1.name}"
+  parent    = google_compute_instance.proxy_1.self_link
   tag_value = "tagValues/${google_tags_tag_value.web.name}"
 }
-
