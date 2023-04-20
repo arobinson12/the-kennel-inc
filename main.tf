@@ -76,3 +76,7 @@ module "cloud_run_app" {
 module "mig" {
   source = "./infrastructure/gce"
 }
+
+module "global_load_balancer" {
+  source = "./network/loadbalancer"
+}
