@@ -1,6 +1,3 @@
-module "custom_firewall" {
-  source = "./modules/custom_firewall"
-}
 
 resource "google_tags_tag_key" "apptype" {
   parent      = "organizations/85360846529"
