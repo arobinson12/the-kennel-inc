@@ -1,3 +1,5 @@
+# Root main.tf
+
 module "vpc" {
   source                                 = "./network/vpc"
   network_name                           = var.network_name
