@@ -76,3 +76,8 @@ module "cloud_run_app" {
 module "mig" {
   source = "./infrastructure/gce"
 }
+
+module "global_load_balancer" {
+  source = "./network/loadbalancer"
+  mig_instance_group = module.mig.instance_group_url
+}
