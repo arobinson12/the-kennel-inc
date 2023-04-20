@@ -3,10 +3,11 @@ resource "google_tags_tag_key" "apptype" {
   parent      = "organizations/85360846529"
   short_name  = "apptype"
   description = "For apptype resources."
-  purpose  = "GCE_FIREWALL"
+  purpose     = "GCE_FIREWALL"
+
   purpose_data {
-      network = "prd-shared-host/vpc-prod-shared"
-    }
+    network = "prd-shared-host/vpc-prod-shared"
+  }
 }
 
 resource "google_tags_tag_value" "web" {
