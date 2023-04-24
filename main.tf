@@ -73,15 +73,15 @@ module "cloud_run_app" {
   ip_range            = "10.90.0.0/28"
 }
   
-module "mig" {
-  source = "./infrastructure/gce"
-}
+#module "mig" {
+#  source = "./infrastructure/gce"
+#}
 
-module "global_load_balancer" {
-  source = "./network/loadbalancer"
-  mig_instance_group = module.mig.instance_group_url
-}
+#module "global_load_balancer" {
+#  source = "./network/loadbalancer"
+#  mig_instance_group = module.mig.instance_group_url
+#}
 
-module "custom_firewall" {
-  source = "./network/tags-firewall"
-}
+#module "custom_firewall" {
+#  source = "./network/tags-firewall"
+#}
