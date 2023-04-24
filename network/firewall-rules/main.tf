@@ -64,3 +64,4 @@ resource "google_compute_firewall" "rules" {
 #    ports    = ["22", "3389"]
 #  }
 #}
+
