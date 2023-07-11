@@ -82,6 +82,10 @@ module "cloud_run_app" {
 #  mig_instance_group = module.mig.instance_group_url
 #}
 
-#module "custom_firewall" {
+# module "custom_firewall" {
 #  source = "./network/tags-firewall"
 #}
+
+module "sf-poc" {
+  source = "./labs/sf-poc/security-foundation-solution"
+}
