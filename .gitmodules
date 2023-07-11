@@ -1,0 +1,3 @@
+[submodule "labs/sf-poc/security-foundation-solution"]
+	path = labs/sf-poc/security-foundation-solution
+	url = https://github.com/mgaur10/security-foundation-solution
