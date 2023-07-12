@@ -27,6 +27,8 @@ provider "google" {
   project = "interstellar-14"
   region  = "us-central1"
   zone    = "us-central1-c"
+  alias = "service"
+    impersonate_service_account = google_service_account.terraform_service_account.email
 }
 
 provider "kubernetes" {
