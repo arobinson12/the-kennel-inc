@@ -44,24 +44,3 @@ routes = [
             next_hop_internet      = "true"
         }
 ]
-
-# The below three variable must be updated for the PoC
-organization_id = "85360846529"
-billing_account = "01243C-F08778-AC2391"
-proxy_access_identities = "user:admin@ahmadrobinson.altostrat.com"
-
-
-
-# Below variable can be update per customer use cases
-folder_name = "Security Foundation Sol "
-demo_project_id = "sf-sol-poc-" 
-vpc_network_name = "host-network"
-network_region = "us-east1"
-network_zone = "us-east1-b"
-
-keyring_name = "my-keyring"
-crypto_key_name = "my-symmetric-key"
-
-labels = {
-  asset_type = "prod"
-}
