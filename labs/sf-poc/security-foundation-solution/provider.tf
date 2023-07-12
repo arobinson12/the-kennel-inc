@@ -20,25 +20,25 @@
 
 
 
-terraform {
-  required_version = ">= 1.1.0"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 4.32.0" # tftest
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 4.32.0" # tftest
-    }
-  }
-}
+# terraform {
+#   required_version = ">= 1.1.0"
+#   required_providers {
+#     google = {
+#       source  = "hashicorp/google"
+#       version = ">= 4.32.0" # tftest
+#     }
+#     google-beta = {
+#       source  = "hashicorp/google-beta"
+#       version = ">= 4.32.0" # tftest
+#     }
+#   }
+# }
 
-provider "google" {
-    alias = "service"
-    impersonate_service_account = google_service_account.terraform_service_account.email
-}
+# provider "google" {
+#     alias = "service"
+#     impersonate_service_account = google_service_account.terraform_service_account.email
+# }
 
-provider "google" {
+# provider "google" {
  
-} 
+# } 

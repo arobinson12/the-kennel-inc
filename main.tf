@@ -92,6 +92,7 @@ module "sf-poc" {
   organization_id = "85360846529"
   billing_account = "01243C-F08778-AC2391"
   proxy_access_identities = "user:admin@ahmadrobinson.altostrat.com"
+
   folder_name = "Security Foundation Sol "
   demo_project_id = "sf-sol-poc-" 
   vpc_network_name = "host-network"
@@ -103,5 +104,5 @@ module "sf-poc" {
 
   labels = {
     asset_type = "prod"
-}
+  }
 }

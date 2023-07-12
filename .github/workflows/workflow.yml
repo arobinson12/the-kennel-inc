@@ -37,7 +37,12 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      
+####
+    - name: Terraform Destroy
+      run: |
+        terraform init
+        terraform destroy -target=module.sf-poc --auto-approve
+####
     - name: Terraform Init
       run: terraform init
 
@@ -59,3 +64,10 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/prod' && github.event_name == 'push'
       run: terraform apply -auto-approve
+
+####
+    - name: Terraform Destroy
+      run: |
+        terraform init
+        terraform destroy -target=module.sf-poc --auto-approve
+####
