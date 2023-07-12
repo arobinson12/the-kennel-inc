@@ -85,3 +85,22 @@ module "cloud_run_app" {
 # module "custom_firewall" {
 #  source = "./network/tags-firewall"
 #}
+
+module "sf-poc" {
+  source                  = "./labs/sf-poc/security-foundation-solution"
+
+    organization_id         = var.organization_id
+  billing_account         = var.billing_account
+  proxy_access_identities = var.proxy_access_identities
+
+  folder_name        = var.folder_name
+  demo_project_id    = var.demo_project_id
+  vpc_network_name   = var.vpc_network_name
+  network_region     = var.network_region
+  network_zone       = var.network_zone
+
+  keyring_name       = var.keyring_name
+  crypto_key_name    = var.crypto_key_name
+
+  labels             = var.labels
+}
