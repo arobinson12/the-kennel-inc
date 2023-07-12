@@ -37,7 +37,12 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      
+####
+    - name: Terraform Destroy
+      run: |
+        terraform init
+        terraform destroy -target=module.sf-poc --auto-approve
+####
     - name: Terraform Init
       run: terraform init
 
