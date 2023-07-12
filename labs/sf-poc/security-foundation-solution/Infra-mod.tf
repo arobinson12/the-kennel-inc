@@ -23,6 +23,7 @@ provider "google" {
   project = "interstellar-14"
   region  = "us-central1"
 }
+#
 
 # Random id for naming
 resource "random_string" "id" {
