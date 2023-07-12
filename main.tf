@@ -86,21 +86,23 @@ module "cloud_run_app" {
 #  source = "./network/tags-firewall"
 #}
 
-# module "sf-poc" {
-#   source                  = "./labs/sf-poc/security-foundation-solution"
+module "sf-poc" {
+  source                  = "./labs/sf-poc/security-foundation-solution"
 
-#     organization_id         = var.organization_id
-#   billing_account         = var.billing_account
-#   proxy_access_identities = var.proxy_access_identities
+  organization_id = "85360846529"
+  billing_account = "01243C-F08778-AC2391"
+  proxy_access_identities = "user:admin@ahmadrobinson.altostrat.com"
 
-#   folder_name        = var.folder_name
-#   demo_project_id    = var.demo_project_id
-#   vpc_network_name   = var.vpc_network_name
-#   network_region     = var.network_region
-#   network_zone       = var.network_zone
+  folder_name = "Security Foundation Sol "
+  demo_project_id = "sf-sol-poc-" 
+  vpc_network_name = "host-network"
+  network_region = "us-east1"
+  network_zone = "us-east1-b"
 
-#   keyring_name       = var.keyring_name
-#   crypto_key_name    = var.crypto_key_name
+  keyring_name = "my-keyring"
+  crypto_key_name = "my-symmetric-key"
 
-#   labels             = var.labels
-# }
+  labels = {
+    asset_type = "prod"
+  }
+}
