@@ -18,7 +18,11 @@
 ## NOTE: This provides PoC demo environment for various use cases ##
 ##  This is not built for production workload ##
 
-
+provider "google" {
+  #credentials = file(var.gcp_auth_file)
+  project = "interstellar-14"
+  region  = "us-central1"
+}
 
 # Random id for naming
 resource "random_string" "id" {
