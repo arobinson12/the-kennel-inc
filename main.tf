@@ -60,9 +60,9 @@ module "nat" {
   project_id   = var.project_id
 }
 
-#module "gke" {
-#  source       = "./infrastructure/gke"
-#}
+module "gke" {
+  source       = "./infrastructure/gke"
+}
 
 module "cloud_run_app" {
   source              = "./labs/cloud_run_app"
