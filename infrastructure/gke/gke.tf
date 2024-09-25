@@ -109,10 +109,9 @@ resource "google_gke_hub_feature_membership" "super_cluster2_policycontroller" {
 
       # Apply the CIS GKE Benchmark bundle
       policy_content {
-        bundles = {
-          "cis-gke-v1.5.0" = {
-            exempted_namespaces = []  # Add namespaces to exempt if needed
-          }
+        bundles {
+          bundle_name = "cis-gke-v1.5.0"
+          exempted_namespaces = []  # Add namespaces to exempt if needed
         }
       }
       
