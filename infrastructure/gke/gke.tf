@@ -8,10 +8,6 @@ terraform {
   }
 }
 
-provider "google" {
-  # Configuration options
-}
-
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
   project                  = "bu1-prod-app"
