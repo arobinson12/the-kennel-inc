@@ -1,12 +1,12 @@
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
 terraform {
   required_providers {
     google = {
-      source = "hashicorp/google"
-      version = "<=5.44.1"
+      source  = "hashicorp/google"
+      version = ">= 5.44.1, < 6.0.0"
     }
   }
 }
+
 
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
@@ -83,7 +83,7 @@ resource "google_gke_hub_membership" "super_cluster2_membership" {
   project       = "bu1-prod-app"
   endpoint {
     gke_cluster {
-      resource_link = "//container.googleapis.com/${google_container_cluster.super_cluster2.id}"
+      resource_link = "//container.googleapis.com/${google_container_cluster.primary.id}"
     }
   }
 }
