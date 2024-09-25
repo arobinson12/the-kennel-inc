@@ -1,4 +1,13 @@
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 5.44.1, < 6.0.0"
+    }
+  }
+}
+
+
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
   project                  = "bu1-prod-app"
@@ -66,4 +75,50 @@ resource "google_container_cluster" "primary" {
         display_name = "internal"
       }
     }
+}
+
+# Define the GKE Hub Membership for the existing cluster
+resource "google_gke_hub_membership" "super_cluster2_membership" {
+  membership_id = "super-cluster2-membership"
+  project       = "bu1-prod-app"
+  endpoint {
+    gke_cluster {
+      resource_link = "//container.googleapis.com/${google_container_cluster.primary.id}"
+    }
+  }
+}
+
+# Enable Policy Controller with CIS GKE Benchmark
+resource "google_gke_hub_feature" "policycontroller" {
+  name     = "policycontroller"
+  location = "global"
+}
+
+resource "google_gke_hub_feature_membership" "super_cluster2_policycontroller" {
+  project    = "bu1-prod-app"
+  location   = "global"
+  feature    = google_gke_hub_feature.policycontroller.name
+  membership = google_gke_hub_membership.super_cluster2_membership.membership_id
+
+  policycontroller {
+    policy_controller_hub_config {
+      install_spec              = "INSTALL_SPEC_ENABLED"  # Install Policy Controller
+      log_denies_enabled        = true                    # Enable deny logs
+      referential_rules_enabled = true                    # Enable referential rules
+      mutation_enabled          = true                    # Enable mutation
+
+      # Apply the CIS GKE Benchmark bundle
+      policy_content {
+        bundles {
+          bundle_name = "cis-gke-v1.5.0"
+          exempted_namespaces = []  # Add namespaces to exempt if needed
+        }
+      }
+      
+      # Optional: Constraint violations and audit interval configurations
+      constraint_violation_limit = 50
+      audit_interval_seconds     = 120
+    }
+    version = "1.17.0"  # Optional: specify Policy Controller version (or use latest)
+  }
 }
