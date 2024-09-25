@@ -1,4 +1,17 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+      version = "6.4.0"
+    }
+  }
+}
+
+provider "google" {
+  # Configuration options
+}
+
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
   project                  = "bu1-prod-app"
