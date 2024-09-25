@@ -119,6 +119,6 @@ resource "google_gke_hub_feature_membership" "super_cluster2_policycontroller" {
       constraint_violation_limit = 50
       audit_interval_seconds     = 120
     }
-    version = "1.17.0"  # Optional: specify Policy Controller version (or use latest)
+    version = "1.19.0"  # Optional: specify Policy Controller version (or use latest)
   }
 }
