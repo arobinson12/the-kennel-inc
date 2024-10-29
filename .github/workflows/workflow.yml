@@ -38,11 +38,9 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
-    # Install the gke-gcloud-auth-plugin
+    # Install the gke-gcloud-auth-plugin using apt-get
     - name: Install gke-gcloud-auth-plugin
-      run: |
-        gcloud components install gke-gcloud-auth-plugin
-        gcloud auth configure-docker
+      run: sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
     - name: Terraform Init
       run: terraform init
