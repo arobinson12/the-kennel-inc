@@ -4,9 +4,21 @@ terraform {
       source  = "hashicorp/google"
       version = ">= 5.44.1, < 6.0.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.11.0" # Adjust based on your needs
+    }
   }
 }
 
+provider "kubernetes" {
+  host                   = google_container_cluster.primary.endpoint
+  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "gke-gcloud-auth-plugin"
+  }
+}
 
 resource "google_container_cluster" "primary" {
   name                     = "super-cluster2"
@@ -120,5 +132,11 @@ resource "google_gke_hub_feature_membership" "super_cluster2_policycontroller" {
       audit_interval_seconds     = 120
     }
     version = "1.19.0"  # Optional: specify Policy Controller version (or use latest)
+  }
+}
+
+resource "kubernetes_namespace" "lab" {
+  metadata {
+    name = "lab-ns"
   }
 }

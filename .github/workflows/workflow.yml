@@ -38,6 +38,13 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
+    # Direct download and install gke-gcloud-auth-plugin
+    - name: Download and Install gke-gcloud-auth-plugin
+      run: |
+        curl -LO https://github.com/GoogleCloudPlatform/cloud-sdk-release-artifacts/releases/download/latest/gke-gcloud-auth-plugin-linux-amd64
+        chmod +x gke-gcloud-auth-plugin-linux-amd64
+        sudo mv gke-gcloud-auth-plugin-linux-amd64 /usr/local/bin/gke-gcloud-auth-plugin
+
     - name: Terraform Init
       run: terraform init
 
